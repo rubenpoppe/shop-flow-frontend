@@ -1,26 +1,26 @@
 import React from 'react';
-import logo from './assets/logo.svg';
 import './App.css';
+import { ThemeProvider } from '@material-ui/core';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import theme from './muiTheme';
+import BottomNav from './components/BottomNav';
+import Scanner from './components/Scanner';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	return (
+		<Router>
+			<Switch>
+				<Route path="/products" exact></Route>
+				<Route path="/products/:id"></Route>
+				<Route path="/scan"></Route>
+				<Route path="/basket"></Route>
+			</Switch>
+
+			<ThemeProvider theme={theme}>
+				<BottomNav />
+			</ThemeProvider>
+		</Router>
+	);
 }
 
 export default App;
