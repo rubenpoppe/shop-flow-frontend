@@ -9,7 +9,12 @@ body {
 }
 
 #root {
-	overflow: scroll;
+	overflow: auto;
+}
+
+main {
+	margin-bottom: 3.5rem;
+	padding: 1rem 1.8rem;
 }
 
 .MuiBottomNavigation-root {
