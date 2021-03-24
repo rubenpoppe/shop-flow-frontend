@@ -13,7 +13,7 @@ function BottomNav() {
 
 	return (
 		<Collapse in={location.pathname !== '/scan'} timeout={500}>
-			<BottomNavigation value={location.pathname} showLabels>
+			<BottomNavigation value={location.pathname} showLabels component="nav"> {/* ! product detail */}
 				<BottomNavigationAction
 					component={Link}
 					to="/products"

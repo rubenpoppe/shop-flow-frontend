@@ -109,9 +109,15 @@ function Scanner() {
 			<video autoPlay ref={videoRef} onCanPlay={handleVideo}></video>
 			<div id="box"></div>
 			<canvas ref={canvasRef}></canvas>
-			<ArrowBack id="back" onClick={() => history.goBack()} />
+			<button id="back" aria-label="ga terug" onClick={() => history.goBack()}>
+				<ArrowBack />
+			</button>
 			{capabilities.torch && (
-				<Fab className="flash" onClick={handleFlash}>
+				<Fab
+					className="flash"
+					aria-label={flash ? 'flash uit' : 'flash aan'}
+					onClick={handleFlash}
+				>
 					{flash ? <FlashOff /> : <FlashOn />}
 				</Fab>
 			)}

@@ -9,6 +9,12 @@ video {
 	overflow: hidden;
 }
 
+main {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+}
+
 video {
 	width: 100%;
 }
@@ -34,6 +40,8 @@ canvas {
 	left: 1rem;
 	font-size: 2rem;
 	color: #fff;
+	background: none;
+	border: none;
 }
 
 .MuiFab-root.flash,
