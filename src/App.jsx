@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import './App.css';
-import { ThemeProvider } from '@material-ui/core';
+import { CircularProgress, ThemeProvider } from '@material-ui/core';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import useMuiTheme from './hooks/useMuiTheme';
 import BottomNav from './components/BottomNav';
-import Scanner from './components/Scanner';
+const Scanner = lazy(() => import('./components/Scanner'));
 
 function App() {
 	return (
@@ -12,12 +12,14 @@ function App() {
 			<ThemeProvider theme={useMuiTheme()}>
 				<main>
 					<Switch>
-						<Route path="/products" exact></Route>
-						<Route path="/products/:id"></Route>
-						<Route path="/scan">
-							<Scanner />
-						</Route>
-						<Route path="/basket"></Route>
+						<Suspense fallback={<CircularProgress />}>
+							<Route path="/products" exact></Route>
+							<Route path="/products/:id"></Route>
+							<Route path="/scan">
+								<Scanner />
+							</Route>
+							<Route path="/basket"></Route>
+						</Suspense>
 					</Switch>
 				</main>
 
