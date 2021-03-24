@@ -109,7 +109,13 @@ function Scanner() {
 			<video autoPlay ref={videoRef} onCanPlay={handleVideo}></video>
 			<div id="box"></div>
 			<canvas ref={canvasRef}></canvas>
-			<button id="back" aria-label="ga terug" onClick={() => history.goBack()}>
+			<button
+				id="back"
+				aria-label="ga terug"
+				onClick={() =>
+					history.length === 1 ? history.push('/') : history.goBack()
+				}
+			>
 				<ArrowBack />
 			</button>
 			{capabilities.torch && (
