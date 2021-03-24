@@ -1,0 +1,46 @@
+html,
+body,
+#root,
+video {
+	height: 100%;
+}
+
+#root {
+	overflow: hidden;
+}
+
+video {
+	width: 100%;
+}
+
+#box {
+	border-radius: 3px;
+	border: 3px dashed white;
+	position: absolute;
+	top: 37.5%;
+	left: 15%;
+	z-index: 10;
+	height: 25%;
+	width: 70%;
+}
+
+canvas {
+	display: none;
+}
+
+#back {
+	position: absolute;
+	top: 0.5rem;
+	left: 1rem;
+	font-size: 2rem;
+	color: #fff;
+}
+
+.MuiFab-root.flash,
+.MuiFab-root.flash:hover {
+	background: #fef6c9;
+	color: #35393c;
+	position: absolute;
+	top: 2rem;
+	right: 2rem;
+}

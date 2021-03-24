@@ -13,7 +13,9 @@ function App() {
 				<Switch>
 					<Route path="/products" exact></Route>
 					<Route path="/products/:id"></Route>
-					<Route path="/scan"></Route>
+					<Route path="/scan">
+						<Scanner />
+					</Route>
 					<Route path="/basket"></Route>
 				</Switch>
 
