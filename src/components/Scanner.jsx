@@ -1,18 +1,25 @@
 import './Scanner.css';
 import javascriptBarcodeReader from 'javascript-barcode-reader';
 import React, { useEffect, useRef, useState } from 'react';
-import { Fab } from '@material-ui/core';
+import { Fab, Snackbar, Button } from '@material-ui/core';
 import { ArrowBack, FlashOff, FlashOn } from '@material-ui/icons';
 import { useHistory } from 'react-router';
+import Incrementer from './Incrementer';
+import { openDB } from 'idb';
 
 function Scanner() {
 	const [capabilities, setCapabilities] = useState({});
 	const [flash, setFlash] = useState(false);
+	const [code, setCode] = useState('');
+	const [product, setProduct] = useState(null);
+	const [open, setOpen] = useState(false);
+	const [count, setCount] = useState(1);
 
 	const streamRef = useRef(null);
 	const scanRef = useRef(null);
 	const videoRef = useRef(null);
 	const canvasRef = useRef(null);
+	const dbRef = useRef(null);
 
 	const history = useHistory();
 
@@ -49,11 +56,32 @@ function Scanner() {
 			})
 			.catch(); // catch possible errors
 
+		async function createDB() {
+			const db = await openDB('basket', 1, {
+				upgrade(db) {
+					db.createObjectStore('basket');
+				},
+			});
+			dbRef.current = db;
+		}
+		createDB();
+
 		return () => {
 			clearInterval(scanRef.current);
 			streamRef.current.getVideoTracks()[0].stop();
 		};
 	}, []);
+
+	useEffect(() => {
+		if (code !== '') {
+			fetch(`${process.env.REACT_APP_API_URL}/products/${code}`)
+				.then((res) => res.json())
+				.then((json) => {
+					setOpen(true);
+					setProduct(json);
+				});
+		}
+	}, [code]);
 
 	const handleVideo = () => {
 		canvasRef.current.setAttribute('width', videoRef.current.videoWidth * 0.7);
@@ -86,7 +114,7 @@ function Scanner() {
 				.then((code) => {
 					if (!isNaN(code) && code.length === 12 && code === previousCode) {
 						// navigator.vibrate(200); // vibrates only after user input
-						alert('barcode: ' + code);
+						setCode(code);
 						setTimeout(() => {}, 500);
 					}
 					previousCode = code;
@@ -102,6 +130,25 @@ function Scanner() {
 			.getVideoTracks()[0]
 			.applyConstraints({ advanced: [{ torch: !flash }] });
 		setFlash(!flash);
+	};
+
+	const resetProduct = () => {
+		setProduct(null);
+		setCount(1);
+		setCode('');
+	};
+
+	const handleClose = async () => {
+		setOpen(false);
+
+		if (product !== null) await dbRef.current.put('basket', count, product.Id);
+
+		resetProduct();
+	};
+
+	const removeItem = () => {
+		setOpen(false);
+		resetProduct();
 	};
 
 	return (
@@ -127,6 +174,23 @@ function Scanner() {
 					{flash ? <FlashOff /> : <FlashOn />}
 				</Fab>
 			)}
+			<Snackbar
+				autoHideDuration={5000}
+				resumeHideDuration={5000}
+				onClose={handleClose}
+				message={
+					<>
+						<p>{product?.Name}</p>
+						<Incrementer count={count} onChange={setCount} />
+					</>
+				}
+				action={
+					<Button color="primary" onClick={removeItem}>
+						Verwijder
+					</Button>
+				}
+				open={open}
+			/>
 		</>
 	);
 }
