@@ -1,4 +1,3 @@
-import './Products.css';
 import {
 	Avatar,
 	Divider,
@@ -35,6 +34,7 @@ export default function Products() {
 						</ListItemAvatar>
 						<ListItemText
 							primary={product.Name}
+							primaryTypographyProps={{ color: 'textPrimary' }}
 							secondary={product.Description}
 						/>
 					</ListItem>

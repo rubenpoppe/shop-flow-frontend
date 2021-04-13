@@ -28,10 +28,18 @@ export default function Product() {
 					style={{ width: '100vw' }}
 				/>
 				<div>
-					<Typography gutterBottom variant="h5" component="h1">
+					<Typography
+						gutterBottom
+						variant="h5"
+						component="h1"
+						color="textPrimary"
+					>
 						{product.Name}
 					</Typography>
-					<Typography variant="overline">{`€${product.SellingPrice}`}</Typography>
+					<Typography
+						variant="overline"
+						color="textSecondary"
+					>{`€${product.SellingPrice}`}</Typography>
 				</div>
 				<Typography
 					gutterBottom
@@ -42,17 +50,17 @@ export default function Product() {
 					{product.Category}
 				</Typography>
 				<section>
-					<Typography variant="h6" component="h2">
+					<Typography variant="h6" component="h2" color="textPrimary">
 						Merk
 					</Typography>
-					<Typography>{product.Brand}</Typography>
+					<Typography color="textSecondary">{product.Brand}</Typography>
 				</section>
 
 				<section>
-					<Typography variant="h6" component="h2">
+					<Typography variant="h6" component="h2" color="textPrimary">
 						Beschrijving
 					</Typography>
-					<Typography>{product.Description}</Typography>
+					<Typography color="textSecondary">{product.Description}</Typography>
 				</section>
 			</>
 		)
