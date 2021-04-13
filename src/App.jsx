@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import useMuiTheme from './hooks/useMuiTheme';
 import BottomNav from './components/BottomNav';
 const Products = lazy(() => import('./components/Products'));
+const Product = lazy(() => import('./components/Product'));
 const Scanner = lazy(() => import('./components/Scanner'));
 
 function App() {
@@ -17,7 +18,9 @@ function App() {
 							<Route path="/products" exact>
 								<Products />
 							</Route>
-							<Route path="/products/:id"></Route>
+							<Route path="/products/:id">
+								<Product/>
+							</Route>
 							<Route path="/scan">
 								<Scanner />
 							</Route>
