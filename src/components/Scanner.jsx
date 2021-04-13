@@ -84,10 +84,13 @@ function Scanner() {
 	}, [code]);
 
 	const handleVideo = () => {
-		canvasRef.current.setAttribute('width', videoRef.current.videoWidth * 0.7);
+		canvasRef.current.setAttribute(
+			'width',
+			Math.round(videoRef.current.videoWidth * 0.7)
+		);
 		canvasRef.current.setAttribute(
 			'height',
-			videoRef.current.videoHeight * 0.25
+			Math.round(videoRef.current.videoHeight * 0.25)
 		);
 		const ctx = canvasRef.current.getContext('2d');
 

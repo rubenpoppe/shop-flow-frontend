@@ -41,12 +41,7 @@ export default function Product() {
 						color="textSecondary"
 					>{`€${product.SellingPrice}`}</Typography>
 				</div>
-				<Typography
-					gutterBottom
-					variant="button"
-					color="primary"
-					aria-label="categorie"
-				>
+				<Typography gutterBottom variant="button" color="primary">
 					{product.Category}
 				</Typography>
 				<section>

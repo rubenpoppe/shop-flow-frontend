@@ -7,7 +7,7 @@ import {
 	ListItemText,
 } from '@material-ui/core';
 import { Link } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 
 export default function Products() {
 	const [products, setProducts] = useState([]);
@@ -21,14 +21,10 @@ export default function Products() {
 	);
 
 	return (
-		<List>
+		<List component="nav">
 			{products.map((product, i) => (
-				<>
-					<ListItem
-						component={Link}
-						to={`/products/${product.Id}`}
-						key={product.Id}
-					>
+				<Fragment key={product.Id}>
+					<ListItem component={Link} to={`/products/${product.Id}`}>
 						<ListItemAvatar>
 							<Avatar />
 						</ListItemAvatar>
@@ -39,7 +35,7 @@ export default function Products() {
 						/>
 					</ListItem>
 					{products.length - 1 > i && <Divider />}
-				</>
+				</Fragment>
 			))}
 		</List>
 	);
