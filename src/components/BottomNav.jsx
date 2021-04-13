@@ -13,26 +13,30 @@ function BottomNav() {
 
 	return (
 		<Collapse in={location.pathname !== '/scan'} timeout={500}>
-			<BottomNavigation value={location.pathname} showLabels component="nav"> {/* ! product detail */}
+			<BottomNavigation
+				value={location.pathname.split('/')[1]}
+				showLabels
+				component="nav"
+			>
 				<BottomNavigationAction
 					component={Link}
 					to="/products"
 					label="Producten"
-					value="/products"
+					value="products"
 					icon={<ListAlt />}
 				/>
 				<BottomNavigationAction
 					component={Link}
 					to="/scan"
 					label="Scan"
-					value="/scan"
+					value="scan"
 					icon={<BarcodeScan />}
 				/>
 				<BottomNavigationAction
 					component={Link}
 					to="/basket"
 					label="Winkelmandje"
-					value="/basket"
+					value="basket"
 					icon={<ShoppingBasket />}
 				/>
 			</BottomNavigation>
