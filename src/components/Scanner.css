@@ -34,16 +34,6 @@ canvas {
 	display: none;
 }
 
-#back {
-	position: absolute;
-	top: 0.5rem;
-	left: 1rem;
-	font-size: 2rem;
-	color: #fff;
-	background: none;
-	border: none;
-}
-
 .MuiFab-root.flash,
 .MuiFab-root.flash:hover {
 	background: #fef6c9;

@@ -1,12 +1,15 @@
 import './Product.css';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
-import { CardMedia, Typography } from '@material-ui/core';
+import { CardMedia, IconButton, Typography } from '@material-ui/core';
+import { ArrowBack } from '@material-ui/icons';
+import { useHistory } from 'react-router';
 
 export default function Product() {
 	const [product, setProduct] = useState(null);
 
 	const { id } = useParams();
+	const history = useHistory();
 
 	useEffect(
 		() =>
@@ -19,6 +22,15 @@ export default function Product() {
 	return (
 		product !== null && (
 			<>
+				<IconButton
+					id="back"
+					aria-label="ga terug"
+					onClick={() =>
+						history.length === 1 ? history.push('/') : history.goBack()
+					}
+				>
+					<ArrowBack />
+				</IconButton>
 				<CardMedia
 					title={product.name}
 					alt=""

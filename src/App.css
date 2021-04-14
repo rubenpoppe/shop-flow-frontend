@@ -31,6 +31,13 @@ main {
 	left: calc(50% - 1.25rem);
 }
 
+#back {
+	position: absolute;
+	left: 1rem;
+	color: #fff;
+	z-index: 10;
+}
+
 @media (prefers-color-scheme: dark) {
 	body {
 		background-color: #303030;

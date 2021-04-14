@@ -1,7 +1,7 @@
 import './Scanner.css';
 import javascriptBarcodeReader from 'javascript-barcode-reader';
 import React, { useEffect, useRef, useState } from 'react';
-import { Fab, Snackbar, Button } from '@material-ui/core';
+import { Fab, Snackbar, Button, IconButton } from '@material-ui/core';
 import { ArrowBack, FlashOff, FlashOn } from '@material-ui/icons';
 import { useHistory } from 'react-router';
 import Incrementer from './Incrementer';
@@ -159,7 +159,7 @@ function Scanner() {
 			<video autoPlay ref={videoRef} onCanPlay={handleVideo}></video>
 			<div id="box"></div>
 			<canvas ref={canvasRef}></canvas>
-			<button
+			<IconButton
 				id="back"
 				aria-label="ga terug"
 				onClick={() =>
@@ -167,7 +167,7 @@ function Scanner() {
 				}
 			>
 				<ArrowBack />
-			</button>
+			</IconButton>
 			{capabilities.torch && (
 				<Fab
 					className="flash"
