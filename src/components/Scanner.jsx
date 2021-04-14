@@ -1,4 +1,4 @@
-import './Scanner.css';
+import styles from './Scanner.module.css';
 import javascriptBarcodeReader from 'javascript-barcode-reader';
 import React, { useEffect, useRef, useState } from 'react';
 import { Fab, Snackbar, Button, IconButton } from '@material-ui/core';
@@ -156,9 +156,6 @@ function Scanner() {
 
 	return (
 		<>
-			<video autoPlay ref={videoRef} onCanPlay={handleVideo}></video>
-			<div id="box"></div>
-			<canvas ref={canvasRef}></canvas>
 			<IconButton
 				id="back"
 				aria-label="ga terug"
@@ -168,32 +165,43 @@ function Scanner() {
 			>
 				<ArrowBack />
 			</IconButton>
-			{capabilities.torch && (
-				<Fab
-					className="flash"
-					aria-label={flash ? 'flash uit' : 'flash aan'}
-					onClick={handleFlash}
-				>
-					{flash ? <FlashOff /> : <FlashOn />}
-				</Fab>
-			)}
-			<Snackbar
-				autoHideDuration={5000}
-				resumeHideDuration={5000}
-				onClose={handleClose}
-				message={
-					<>
-						<p>{product?.name}</p>
-						<Incrementer count={count} onChange={setCount} />
-					</>
-				}
-				action={
-					<Button color="primary" onClick={removeItem}>
-						Verwijder
-					</Button>
-				}
-				open={open}
-			/>
+			<div className={styles.wrapper}>
+				<video
+					autoPlay
+					ref={videoRef}
+					onCanPlay={handleVideo}
+					className={styles.feed}
+				></video>
+				<div className={styles.box}></div>
+				<canvas ref={canvasRef}></canvas>
+
+				{capabilities.torch && (
+					<Fab
+						className={styles.flash}
+						aria-label={flash ? 'flash uit' : 'flash aan'}
+						onClick={handleFlash}
+					>
+						{flash ? <FlashOff /> : <FlashOn />}
+					</Fab>
+				)}
+				<Snackbar
+					autoHideDuration={5000}
+					resumeHideDuration={5000}
+					onClose={handleClose}
+					message={
+						<>
+							<p>{product?.name}</p>
+							<Incrementer count={count} onChange={setCount} />
+						</>
+					}
+					action={
+						<Button color="primary" onClick={removeItem}>
+							Verwijder
+						</Button>
+					}
+					open={open}
+				/>
+			</div>
 		</>
 	);
 }
