@@ -20,7 +20,7 @@ export default function Product() {
 		product !== null && (
 			<>
 				<CardMedia
-					title={product.Name}
+					title={product.name}
 					alt=""
 					image={'https://via.placeholder.com/150'} // TODO image path
 					component="img"
@@ -34,28 +34,28 @@ export default function Product() {
 						component="h1"
 						color="textPrimary"
 					>
-						{product.Name}
+						{product.name}
 					</Typography>
 					<Typography
 						variant="overline"
 						color="textSecondary"
-					>{`€${product.SellingPrice}`}</Typography>
+					>{`€${product.sellingPrice}`}</Typography>
 				</div>
 				<Typography gutterBottom variant="button" color="primary">
-					{product.Category}
+					{product.category}
 				</Typography>
 				<section>
 					<Typography variant="h6" component="h2" color="textPrimary">
 						Merk
 					</Typography>
-					<Typography color="textSecondary">{product.Brand}</Typography>
+					<Typography color="textSecondary">{product.brand}</Typography>
 				</section>
 
 				<section>
 					<Typography variant="h6" component="h2" color="textPrimary">
 						Beschrijving
 					</Typography>
-					<Typography color="textSecondary">{product.Description}</Typography>
+					<Typography color="textSecondary">{product.description}</Typography>
 				</section>
 			</>
 		)

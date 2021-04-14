@@ -144,7 +144,7 @@ function Scanner() {
 	const handleClose = async () => {
 		setOpen(false);
 
-		if (product !== null) await dbRef.current.put('basket', count, product.Id);
+		if (product !== null) await dbRef.current.put('basket', count, product.id);
 
 		resetProduct();
 	};
@@ -183,7 +183,7 @@ function Scanner() {
 				onClose={handleClose}
 				message={
 					<>
-						<p>{product?.Name}</p>
+						<p>{product?.name}</p>
 						<Incrementer count={count} onChange={setCount} />
 					</>
 				}

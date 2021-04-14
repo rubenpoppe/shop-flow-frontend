@@ -23,15 +23,15 @@ export default function Products() {
 	return (
 		<List component="nav">
 			{products.map((product, i) => (
-				<Fragment key={product.Id}>
-					<ListItem component={Link} to={`/products/${product.Id}`}>
+				<Fragment key={product.id}>
+					<ListItem component={Link} to={`/products/${product.id}`}>
 						<ListItemAvatar>
 							<Avatar />
 						</ListItemAvatar>
 						<ListItemText
-							primary={product.Name}
+							primary={product.name}
 							primaryTypographyProps={{ color: 'textPrimary' }}
-							secondary={product.Description}
+							secondary={product.description}
 						/>
 					</ListItem>
 					{products.length - 1 > i && <Divider />}
