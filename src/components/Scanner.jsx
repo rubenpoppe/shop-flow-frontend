@@ -1,5 +1,5 @@
 import styles from './Scanner.module.css';
-import javascriptBarcodeReader from 'javascript-barcode-reader';
+import { BrowserMultiFormatOneDReader } from '@zxing/browser';
 import React, { useEffect, useRef, useState } from 'react';
 import { Fab, Snackbar, Button, IconButton } from '@material-ui/core';
 import { ArrowBack, FlashOff, FlashOn } from '@material-ui/icons';
@@ -16,14 +16,10 @@ function Scanner() {
 	const [count, setCount] = useState(1);
 
 	const streamRef = useRef(null);
-	const scanRef = useRef(null);
-	const videoRef = useRef(null);
-	const canvasRef = useRef(null);
+	const barcodeReader = useRef();
 	const dbRef = useRef(null);
 
 	const history = useHistory();
-
-	let previousCode = ''; // state?
 
 	useEffect(() => {
 		navigator.mediaDevices
@@ -45,14 +41,21 @@ function Scanner() {
 					)
 				);
 				streamRef.current = stream;
-				videoRef.current.srcObject = stream;
+
 				if (capabilities.focusMode) {
 					stream.getVideoTracks()[0].applyConstraints({
 						advanced: [{ focusMode: 'continuous' }],
 					});
 				}
 
-				videoRef.current.play();
+				new BrowserMultiFormatOneDReader().decodeFromStream(
+					stream,
+					'video',
+					(res, err, controls) => {
+						barcodeReader.current = controls;
+						if (res) setCode(res.text);
+					}
+				);
 			})
 			.catch(); // catch possible errors
 
@@ -67,7 +70,7 @@ function Scanner() {
 		createDB();
 
 		return () => {
-			clearInterval(scanRef.current);
+			barcodeReader.current.stop();
 			streamRef.current.getVideoTracks()[0].stop();
 		};
 	}, []);
@@ -77,56 +80,11 @@ function Scanner() {
 			fetch(`${process.env.REACT_APP_API_URL}/products/${code}`)
 				.then((res) => res.json())
 				.then((json) => {
-					setOpen(true);
 					setProduct(json);
+					setOpen(true);
 				});
 		}
 	}, [code]);
-
-	const handleVideo = () => {
-		canvasRef.current.setAttribute(
-			'width',
-			Math.round(videoRef.current.videoWidth * 0.7)
-		);
-		canvasRef.current.setAttribute(
-			'height',
-			Math.round(videoRef.current.videoHeight * 0.25)
-		);
-		const ctx = canvasRef.current.getContext('2d');
-
-		scanRef.current = setInterval(() => {
-			ctx.drawImage(
-				videoRef.current,
-				videoRef.current.videoWidth * 0.15,
-				videoRef.current.videoHeight * 0.375,
-				videoRef.current.videoWidth * 0.7,
-				videoRef.current.videoHeight * 0.25,
-				0,
-				0,
-				videoRef.current.videoWidth * 0.7,
-				videoRef.current.videoHeight * 0.25
-			);
-
-			javascriptBarcodeReader({
-				image: canvasRef.current,
-				barcode: 'ean-13',
-				options: {
-					useAdaptiveThreshold: true,
-				},
-			})
-				.then((code) => {
-					if (!isNaN(code) && code.length === 12 && code === previousCode) {
-						// navigator.vibrate(200); // vibrates only after user input
-						setCode(code);
-						setTimeout(() => {}, 500);
-					}
-					previousCode = code;
-				})
-				.catch((err) => {
-					// handle error appropriately
-				});
-		}, 100);
-	};
 
 	const handleFlash = () => {
 		streamRef.current
@@ -166,14 +124,8 @@ function Scanner() {
 				<ArrowBack />
 			</IconButton>
 			<div className={styles.wrapper}>
-				<video
-					autoPlay
-					ref={videoRef}
-					onCanPlay={handleVideo}
-					className={styles.feed}
-				></video>
+				<video id="video" className={styles.feed}></video>
 				<div className={styles.box}></div>
-				<canvas ref={canvasRef}></canvas>
 
 				{capabilities.torch && (
 					<Fab
