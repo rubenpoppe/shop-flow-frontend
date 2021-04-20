@@ -7,6 +7,7 @@ import BottomNav from './components/BottomNav';
 const Products = lazy(() => import('./components/Products'));
 const Product = lazy(() => import('./components/Product'));
 const Scanner = lazy(() => import('./components/Scanner'));
+const Basket = lazy(() => import('./components/Basket'));
 
 function App() {
 	return (
@@ -19,12 +20,14 @@ function App() {
 								<Products />
 							</Route>
 							<Route path="/products/:id">
-								<Product/>
+								<Product />
 							</Route>
 							<Route path="/scan">
 								<Scanner />
 							</Route>
-							<Route path="/basket"></Route>
+							<Route path="/basket">
+								<Basket />
+							</Route>
 						</Suspense>
 					</Switch>
 				</main>
