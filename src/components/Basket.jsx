@@ -89,6 +89,7 @@ export default function Products() {
 								primaryTypographyProps={{
 									color: 'textPrimary',
 									component: 'div',
+									style: { display: 'flex' },
 									className: styles.productWrapper,
 								}}
 								secondary={
@@ -96,7 +97,7 @@ export default function Products() {
 										<Button
 											color="primary"
 											onClick={() => removeProduct(product.id)}
-											className={styles.deleteButton}
+											style={{ padding: 0 }}
 										>
 											Verwijder
 										</Button>
@@ -108,6 +109,7 @@ export default function Products() {
 								}
 								secondaryTypographyProps={{
 									component: 'div',
+									style: { display: 'flex' },
 									className: styles.productWrapper,
 								}}
 							/>
@@ -120,6 +122,7 @@ export default function Products() {
 				variant="extended"
 				color="primary"
 				className={styles.checkout}
+				style={{ position: 'fixed', color: 'rgba(0, 0, 0, 0.54)' }}
 				aria-label="Doorgaan naar afrekenen"
 				component={Link}
 				to="/checkout"
