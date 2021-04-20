@@ -77,6 +77,11 @@ function Scanner() {
 
 	useEffect(() => {
 		if (code !== '') {
+			async function getCount(code) {
+				setCount(await dbRef.current.get('basket', code));
+			}
+			getCount(code);
+
 			fetch(`${process.env.REACT_APP_API_URL}/products/${code}`)
 				.then((res) => res.json())
 				.then((json) => {
