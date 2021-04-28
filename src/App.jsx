@@ -15,7 +15,9 @@ function App() {
 			<ThemeProvider theme={useMuiTheme()}>
 				<main>
 					<Switch>
-						<Suspense fallback={<CircularProgress />}>
+						<Suspense
+							fallback={<CircularProgress style={{ position: 'fixed' }} />}
+						>
 							<Route path="/products" exact>
 								<Products />
 							</Route>
