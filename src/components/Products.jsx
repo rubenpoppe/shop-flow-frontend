@@ -8,6 +8,7 @@ import {
 } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import { Fragment, useEffect, useState } from 'react';
+import loadingAttributePolyfill from 'loading-attribute-polyfill';
 
 export default function Products() {
 	const [products, setProducts] = useState([]);
@@ -26,7 +27,10 @@ export default function Products() {
 				<Fragment key={product.id}>
 					<ListItem component={Link} to={`/products/${product.id}`}>
 						<ListItemAvatar>
-							<Avatar />
+							<Avatar
+								src={`${process.env.REACT_APP_CDN_URL}/img/${product.id}.jpg`}
+								imgProps={{ loading: 'lazy' }}
+							/>
 						</ListItemAvatar>
 						<ListItemText
 							primary={product.name}
