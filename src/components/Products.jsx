@@ -20,12 +20,13 @@ import { Fragment, useEffect, useState } from 'react';
 import { FilterList, Search } from '@material-ui/icons';
 import { isMobile } from 'react-device-detect';
 import queryParamJoiner from '../utils/queryParamJoiner';
+import useQuery from '../hooks/useQuery';
 
 export default function Products() {
 	const [products, setProducts] = useState([]);
 	const [categories, setCategories] = useState([]);
 	const [search, setSearch] = useState('');
-	const [category, setCategory] = useState();
+	const [category, setCategory] = useState(useQuery().category);
 	const [drawerOpen, setDrawerOpen] = useState(false);
 
 	let params = [];

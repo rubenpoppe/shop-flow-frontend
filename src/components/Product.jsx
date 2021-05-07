@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { CardMedia, IconButton, Typography } from '@material-ui/core';
 import { ArrowBack } from '@material-ui/icons';
-import { useHistory } from 'react-router';
+import { Link, useHistory } from 'react-router-dom';
 
 export default function Product() {
 	const [product, setProduct] = useState(null);
@@ -53,7 +53,14 @@ export default function Product() {
 						color="textSecondary"
 					>{`€${product.sellingPrice}`}</Typography>
 				</div>
-				<Typography gutterBottom variant="button" color="primary">
+				<Typography
+					gutterBottom
+					variant="button"
+					color="primary"
+					component={Link}
+					to={`/products?category=${product.category.toLowerCase()}`}
+					style={{ textDecoration: 'none' }}
+				>
 					{product.category}
 				</Typography>
 				<section>
