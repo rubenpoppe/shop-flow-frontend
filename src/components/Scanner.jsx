@@ -125,6 +125,7 @@ function Scanner() {
 				onClick={() =>
 					history.length === 1 ? history.push('/') : history.goBack()
 				}
+				style={{ color: '#fff' }}
 			>
 				<ArrowBack />
 			</IconButton>
