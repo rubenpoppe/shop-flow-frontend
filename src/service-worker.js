@@ -65,7 +65,7 @@ registerRoute(
 );
 
 registerRoute(
-	({ url }) => url.origin === process.env.REACT_APP_API_URL,
+	({ url }) => url.origin === process.env.REACT_APP_API_URL && !url.search,
 	new StaleWhileRevalidate({
 		cacheName: 'api-cache',
 		plugins: [new CacheableResponsePlugin({ statuses: [0, 200] })],
