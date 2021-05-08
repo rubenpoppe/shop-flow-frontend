@@ -72,18 +72,25 @@ export default function Products() {
 				<Toolbar style={{ justifyContent: 'space-between' }}>
 					<div></div>
 					<form className={styles.search} onSubmit={handleSearch}>
-						<Search style={{ paddingRight: '1rem' }} />
+						<Search
+							style={{ color: 'rgba(0, 0, 0, 0.54)', paddingRight: '1rem' }}
+						/>
 						<InputBase
 							placeholder="Zoeken"
 							type="search"
 							name="search"
-							inputProps={{ style: { padding: 0 } }}
+							inputProps={{
+								style: { padding: 0, color: 'rgba(0, 0, 0, 0.87)' },
+							}}
 							fullWidth={true}
 							value={search}
 							onChange={(e) => setSearch(e.target.value)}
 						/>
 					</form>
-					<IconButton onClick={() => setDrawerOpen(!drawerOpen)}>
+					<IconButton
+						onClick={() => setDrawerOpen(!drawerOpen)}
+						style={{ color: 'rgba(0, 0, 0, 0.54)' }}
+					>
 						<FilterList />
 					</IconButton>
 				</Toolbar>
