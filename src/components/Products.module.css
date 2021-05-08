@@ -4,6 +4,7 @@
 	width: clamp(10rem, 100%, 36rem);
 	background: #ffffff70;
 	padding: 0.5rem 0.4rem;
+	margin-right: 0.3rem;
 	border-radius: 4px;
 	justify-content: space-evenly;
 }
