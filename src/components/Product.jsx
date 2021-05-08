@@ -28,16 +28,17 @@ export default function Product() {
 					onClick={() =>
 						history.length === 1 ? history.push('/') : history.goBack()
 					}
+					style={{ color: 'rgba(0, 0, 0, 0.54)' }}
 				>
 					<ArrowBack />
 				</IconButton>
 				<CardMedia
 					title={product.name}
 					alt=""
-					image={'https://via.placeholder.com/150'} // TODO image path
+					image={`${process.env.REACT_APP_CDN_URL}/img/${product.id}.jpg`}
 					component="img"
 					height="200"
-					style={{ width: '100vw' }}
+					style={{ width: '100vw', objectFit: 'contain', background: '#fff' }}
 				/>
 				<div>
 					<Typography

@@ -21,6 +21,7 @@ import { FilterList, Search } from '@material-ui/icons';
 import { isMobile } from 'react-device-detect';
 import queryParamJoiner from '../utils/queryParamJoiner';
 import useQuery from '../hooks/useQuery';
+import loadingAttributePolyfill from 'loading-attribute-polyfill';
 
 export default function Products() {
 	const [products, setProducts] = useState([]);

@@ -33,7 +33,6 @@ main {
 #back {
 	position: absolute;
 	left: 1rem;
-	color: #fff;
 	z-index: 10;
 }
 
