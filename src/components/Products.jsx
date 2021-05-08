@@ -14,6 +14,7 @@ import {
 	MenuItem,
 	Select,
 	Toolbar,
+	Typography,
 } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import { Fragment, useEffect, useState } from 'react';
@@ -35,7 +36,8 @@ export default function Products() {
 	useEffect(() => {
 		fetch(`${process.env.REACT_APP_API_URL}/products`)
 			.then((res) => res.json())
-			.then((json) => setProducts(json));
+			.then((json) => setProducts(json))
+			.catch((_) => setProducts([]));
 		fetch(`${process.env.REACT_APP_API_URL}/categories`)
 			.then((res) => res.json())
 			.then((json) => setCategories(json));
@@ -54,7 +56,8 @@ export default function Products() {
 				`${process.env.REACT_APP_API_URL}/products${queryParamJoiner(params)}`
 			)
 				.then((res) => res.json())
-				.then((json) => setProducts(json)),
+				.then((json) => setProducts(json))
+				.catch((_) => setProducts([])),
 		[category]
 	);
 
@@ -64,7 +67,8 @@ export default function Products() {
 			`${process.env.REACT_APP_API_URL}/products${queryParamJoiner(params)}`
 		)
 			.then((res) => res.json())
-			.then((json) => setProducts(json));
+			.then((json) => setProducts(json))
+			.catch((_) => setProducts([]));
 	};
 
 	return (
@@ -97,12 +101,27 @@ export default function Products() {
 				</Toolbar>
 			</AppBar>
 
-			<List component="nav" style={{ marginTop: isMobile ? '2.5rem' : '3rem' }}>
+			{products.length === 0 ? (
+				<Typography
+					color="textSecondary"
+					style={{ marginTop: isMobile ? '3em' : '3.5rem' }}
+				>
+					{window.navigator.onLine
+						? 'Geen producten gevonden'
+						: 'Je moet online om te kunnen zoeken'}
+				</Typography>
+			) : (
+				<List
+					component="nav"
+					style={{ marginTop: isMobile ? '2.5rem' : '3rem' }}
+				>
 				{products.map((product, i) => (
 					<Fragment key={product.id}>
 						<ListItem component={Link} to={`/products/${product.id}`}>
 							<ListItemAvatar>
-								<Avatar src={`${process.env.REACT_APP_CDN_URL}/img/${product.id}.jpg`} />
+									<Avatar
+										src={`${process.env.REACT_APP_CDN_URL}/img/${product.id}.jpg`}
+									/>
 							</ListItemAvatar>
 							<ListItemText
 								primary={product.name}
@@ -114,6 +133,7 @@ export default function Products() {
 					</Fragment>
 				))}
 			</List>
+			)}
 
 			<Drawer
 				anchor="right"
