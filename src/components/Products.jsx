@@ -115,24 +115,24 @@ export default function Products() {
 					component="nav"
 					style={{ marginTop: isMobile ? '2.5rem' : '3rem' }}
 				>
-				{products.map((product, i) => (
-					<Fragment key={product.id}>
-						<ListItem component={Link} to={`/products/${product.id}`}>
-							<ListItemAvatar>
+					{products.map((product, i) => (
+						<Fragment key={product.id}>
+							<ListItem component={Link} to={`/products/${product.id}`}>
+								<ListItemAvatar>
 									<Avatar
 										src={`${process.env.REACT_APP_CDN_URL}/img/${product.id}.jpg`}
 									/>
-							</ListItemAvatar>
-							<ListItemText
-								primary={product.name}
-								primaryTypographyProps={{ color: 'textPrimary' }}
-								secondary={product.description}
-							/>
-						</ListItem>
-						{products.length - 1 > i && <Divider />}
-					</Fragment>
-				))}
-			</List>
+								</ListItemAvatar>
+								<ListItemText
+									primary={product.name}
+									primaryTypographyProps={{ color: 'textPrimary' }}
+									secondary={product.description}
+								/>
+							</ListItem>
+							{products.length - 1 > i && <Divider />}
+						</Fragment>
+					))}
+				</List>
 			)}
 
 			<Drawer
@@ -149,7 +149,7 @@ export default function Products() {
 				<InputLabel>Categorie</InputLabel>
 				<Select
 					native={isMobile}
-					value={category}
+					value={category || 'all'}
 					onChange={(e) => setCategory(e.target.value)}
 				>
 					{[{ value: 'all', name: 'Alle' }, ...categories].map((c) =>
