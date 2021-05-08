@@ -54,7 +54,9 @@ registerRoute(
 	({ url }) =>
 		(url.origin === self.location.origin ||
 			url.origin === process.env.REACT_APP_CDN_URL) &&
-		(url.pathname.endsWith('.png') || url.pathname.endsWith('.jpg')), // Customize this strategy as needed, e.g., by changing to CacheFirst.
+		(url.pathname.endsWith('.png') ||
+			url.pathname.endsWith('.jpg') ||
+			url.pathname.endsWith('.svg')), // Customize this strategy as needed, e.g., by changing to CacheFirst.
 	new StaleWhileRevalidate({
 		cacheName: 'images',
 		plugins: [

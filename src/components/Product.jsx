@@ -39,6 +39,7 @@ export default function Product() {
 					component="img"
 					height="200"
 					style={{ width: '100vw', objectFit: 'contain', background: '#fff' }}
+					onError={(e) => (e.target.src = '/images/broken-image.svg')}
 				/>
 				<div>
 					<Typography

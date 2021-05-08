@@ -18,7 +18,7 @@ import {
 } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import { Fragment, useEffect, useState } from 'react';
-import { FilterList, Search } from '@material-ui/icons';
+import { FilterList, Search, Store } from '@material-ui/icons';
 import { isMobile } from 'react-device-detect';
 import queryParamJoiner from '../utils/queryParamJoiner';
 import useQuery from '../hooks/useQuery';
@@ -121,7 +121,9 @@ export default function Products() {
 								<ListItemAvatar>
 									<Avatar
 										src={`${process.env.REACT_APP_CDN_URL}/img/${product.id}.jpg`}
-									/>
+									>
+										<Store />
+									</Avatar>
 								</ListItemAvatar>
 								<ListItemText
 									primary={product.name}
