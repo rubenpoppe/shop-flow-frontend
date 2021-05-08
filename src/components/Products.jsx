@@ -27,14 +27,14 @@ import loadingAttributePolyfill from 'loading-attribute-polyfill';
 export default function Products() {
 	const [products, setProducts] = useState([]);
 	const [categories, setCategories] = useState([]);
-	const [search, setSearch] = useState('');
+	const [search, setSearch] = useState(useQuery().search);
 	const [category, setCategory] = useState(useQuery().category);
 	const [drawerOpen, setDrawerOpen] = useState(false);
 
 	let params = [];
 
 	useEffect(() => {
-		fetch(`${process.env.REACT_APP_API_URL}/products`)
+		fetch(`${process.env.REACT_APP_API_URL}/products${queryParamJoiner(params)}`)
 			.then((res) => res.json())
 			.then((json) => setProducts(json))
 			.catch((_) => setProducts([]));
