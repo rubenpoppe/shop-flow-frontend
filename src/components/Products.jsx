@@ -102,7 +102,7 @@ export default function Products() {
 					<Fragment key={product.id}>
 						<ListItem component={Link} to={`/products/${product.id}`}>
 							<ListItemAvatar>
-								<Avatar />
+								<Avatar src={`${process.env.REACT_APP_CDN_URL}/img/${product.id}.jpg`} />
 							</ListItemAvatar>
 							<ListItemText
 								primary={product.name}
