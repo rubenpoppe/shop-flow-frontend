@@ -52,9 +52,7 @@ export default function Products() {
 
 	useEffect(
 		() =>
-			fetch(
-				`${process.env.REACT_APP_API_URL}/products${queryParamJoiner(params)}`
-			)
+			fetch(`${process.env.REACT_APP_API_URL}/api/products${queryParamJoiner(params)}`)
 				.then((res) => res.json())
 				.then((json) => setProducts(json))
 				.catch((_) => setProducts([])),
