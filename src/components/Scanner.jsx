@@ -1,7 +1,15 @@
 import styles from './Scanner.module.css';
 import { BrowserMultiFormatOneDReader } from '@zxing/browser';
 import React, { useEffect, useRef, useState } from 'react';
-import { Fab, Snackbar, Button, IconButton } from '@material-ui/core';
+import {
+	Fab,
+	Snackbar,
+	Button,
+	IconButton,
+	ThemeProvider,
+	createMuiTheme,
+	useMediaQuery,
+} from '@material-ui/core';
 import { ArrowBack, FlashOff, FlashOn } from '@material-ui/icons';
 import { useHistory } from 'react-router';
 import Incrementer from './Incrementer';
@@ -11,7 +19,7 @@ function Scanner() {
 	const [capabilities, setCapabilities] = useState({});
 	const [flash, setFlash] = useState(false);
 	const [code, setCode] = useState('');
-	const [product, setProduct] = useState(null);
+	const [product, setProduct] = useState();
 	const [open, setOpen] = useState(false);
 	const [count, setCount] = useState(1);
 
@@ -20,6 +28,13 @@ function Scanner() {
 	const dbRef = useRef(null);
 
 	const history = useHistory();
+
+	const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
+	const incrementerTheme = createMuiTheme({
+		palette: {
+			type: prefersDarkMode ? 'light' : 'dark',
+		},
+	});
 
 	useEffect(() => {
 		navigator.mediaDevices
@@ -78,7 +93,7 @@ function Scanner() {
 	useEffect(() => {
 		if (code !== '') {
 			async function getCount(code) {
-				setCount(await dbRef.current.get('basket', code) || 1);
+				setCount((await dbRef.current.get('basket', code)) || 1);
 			}
 			getCount(code);
 
@@ -86,6 +101,10 @@ function Scanner() {
 				.then((res) => res.json())
 				.then((json) => {
 					setProduct(json);
+					setOpen(true);
+				})
+				.catch((_) => {
+					setProduct(null);
 					setOpen(true);
 				});
 		}
@@ -99,16 +118,14 @@ function Scanner() {
 	};
 
 	const resetProduct = () => {
-		setProduct(null);
+		setProduct();
 		setCount(1);
 		setCode('');
 	};
 
 	const handleClose = async () => {
 		setOpen(false);
-
 		if (product !== null) await dbRef.current.put('basket', count, product.id);
-
 		resetProduct();
 	};
 
@@ -147,10 +164,16 @@ function Scanner() {
 					resumeHideDuration={5000}
 					onClose={handleClose}
 					message={
-						<>
-							<p>{product?.name}</p>
-							<Incrementer count={count} onChange={setCount} />
-						</>
+						product === null ? (
+							<p>Product niet gevonden</p>
+						) : (
+							<>
+								<p>{product?.name}</p>
+								<ThemeProvider theme={incrementerTheme}>
+									<Incrementer count={count} onChange={setCount} />
+								</ThemeProvider>
+							</>
+						)
 					}
 					action={
 						<Button color="primary" onClick={removeItem}>

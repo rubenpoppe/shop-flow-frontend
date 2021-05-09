@@ -20,7 +20,7 @@ import { useHistory } from 'react-router';
 import useQuery from '../hooks/useQuery';
 import { PaymentSuccess, PaymentFail } from './PaymentStatus';
 import stripeErrorCodes from '../assets/stripe-error-codes';
-import { openDB } from 'idb';
+import { deleteDB, openDB } from 'idb';
 
 export default function Checkout() {
 	const [paymentMethod, setPaymentMethod] = useState('bancontact');
@@ -74,12 +74,19 @@ export default function Checkout() {
 			}
 
 			createPaymentIntent();
+		} else if (redirect_status === 'succeeded') {
+			async function emptyBasket() {
+				await deleteDB('basket');
+			}
+
+			emptyBasket();
 		}
 	}, [redirect_status]);
 
 	useEffect(() => setError(''), [activeStep]);
 
-	const handleSubmit = async () => {
+	const handleSubmit = async (e) => {
+		e.preventDefault();
 		setProcessing(true);
 
 		let payload = null;
@@ -113,7 +120,7 @@ export default function Checkout() {
 			setError(stripeErrorCodes[payload.error.code]);
 			setProcessing(false);
 		} else {
-			setError(null);
+			setError('');
 			setProcessing(false);
 			setSucceeded(true);
 			history.push(`/checkout?redirect_status=${payload.paymentIntent.status}`);
@@ -121,7 +128,7 @@ export default function Checkout() {
 	};
 
 	return !redirect_status ? (
-		<>
+		<form onSubmit={handleSubmit}>
 			<Stepper
 				alternativeLabel
 				activeStep={activeStep}
@@ -182,20 +189,22 @@ export default function Checkout() {
 					<Button
 						variant="contained"
 						onClick={() => setActiveStep(activeStep + 1)}
+						key="next"
 					>
 						Ga door
 					</Button>
 				) : (
 					<Button
 						variant="contained"
+						type="submit"
 						disabled={processing || succeeded}
-						onClick={handleSubmit}
+						key="pay"
 					>
 						{processing ? <CircularProgress size="1.75rem" /> : 'Betaal'}
 					</Button>
 				)}
 			</div>
-		</>
+		</form>
 	) : redirect_status === 'succeeded' ? (
 		<PaymentSuccess />
 	) : (

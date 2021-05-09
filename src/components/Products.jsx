@@ -16,7 +16,7 @@ import {
 	Toolbar,
 	Typography,
 } from '@material-ui/core';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { Fragment, useEffect, useState } from 'react';
 import { FilterList, Search, Store } from '@material-ui/icons';
 import { isMobile } from 'react-device-detect';
@@ -30,43 +30,39 @@ export default function Products() {
 	const [search, setSearch] = useState(useQuery().search);
 	const [category, setCategory] = useState(useQuery().category);
 	const [drawerOpen, setDrawerOpen] = useState(false);
+	const [canSearch, setCanSearch] = useState('');
 
+	const history = useHistory();
 	let params = [];
 
-	useEffect(() => {
-		fetch(`${process.env.REACT_APP_API_URL}/products${queryParamJoiner(params)}`)
-			.then((res) => res.json())
-			.then((json) => setProducts(json))
-			.catch((_) => setProducts([]));
-		fetch(`${process.env.REACT_APP_API_URL}/categories`)
-			.then((res) => res.json())
-			.then((json) => setCategories(json));
-	}, []);
+	useEffect(
+		() =>
+			fetch(`${process.env.REACT_APP_API_URL}/api/categories`)
+				.then((res) => res.json())
+				.then((json) => setCategories(json))
+				.catch((_) => setCategories([])),
+		[]
+	);
 
 	useEffect(() => {
 		params = [];
 		if (!!search) params.push({ key: 'search', value: search });
 		if (!!category && category !== 'all')
 			params.push({ key: 'category', value: category });
-	}, [search, category]);
 
-	useEffect(
-		() =>
-			fetch(`${process.env.REACT_APP_API_URL}/api/products${queryParamJoiner(params)}`)
-				.then((res) => res.json())
-				.then((json) => setProducts(json))
-				.catch((_) => setProducts([])),
-		[category]
-	);
-
-	const handleSearch = (e) => {
-		e.preventDefault();
 		fetch(
-			`${process.env.REACT_APP_API_URL}/products${queryParamJoiner(params)}`
+			`${process.env.REACT_APP_API_URL}/api/products${queryParamJoiner(params)}`
 		)
 			.then((res) => res.json())
 			.then((json) => setProducts(json))
 			.catch((_) => setProducts([]));
+
+		history.replace(`/products${queryParamJoiner(params)}`);
+	}, [canSearch, category]);
+
+	const handleSearch = (e) => {
+		e.preventDefault();
+		setCanSearch(search);
 	};
 
 	return (

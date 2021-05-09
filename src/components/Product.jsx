@@ -60,10 +60,10 @@ export default function Product() {
 					variant="button"
 					color="primary"
 					component={Link}
-					to={`/products?category=${product.category.toLowerCase()}`}
+					to={`/products?category=${product.categoryName.toLowerCase()}`}
 					style={{ textDecoration: 'none' }}
 				>
-					{product.category}
+					{product.categoryName}
 				</Typography>
 				<section>
 					<Typography variant="h6" component="h2" color="textPrimary">
