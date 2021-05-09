@@ -69,9 +69,6 @@ export default function Products() {
 				{products.map((product, i) => (
 					<Fragment key={product.id}>
 						<ListItem>
-							<ListItemAvatar>
-								<Avatar />
-							</ListItemAvatar>
 							<ListItemText
 								primary={
 									<>
