@@ -52,3 +52,10 @@ section {
 
 	/* text styles */
 }
+
+@media screen and (min-width: 768px) {
+	main {
+		width: clamp(16rem, 80%, 42rem);
+		margin: auto auto 3.5rem;
+	}
+}
