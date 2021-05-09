@@ -13,7 +13,7 @@ export default function Product() {
 
 	useEffect(
 		() =>
-			fetch(`${process.env.REACT_APP_API_URL}/products/${id}`)
+			fetch(`${process.env.REACT_APP_API_URL}/api/products/${id}`)
 				.then((res) => res.json())
 				.then((json) => setProduct(json)),
 		[id]

@@ -7,12 +7,17 @@ import {
 import { ListAlt, ShoppingBasket } from '@material-ui/icons';
 import { BarcodeScan } from 'mdi-material-ui';
 import { Link, useLocation } from 'react-router-dom';
+import useQuery from '../hooks/useQuery';
 
 function BottomNav() {
 	const location = useLocation();
+	const { redirect_status } = useQuery();
 
 	return (
-		<Collapse in={location.pathname !== '/scan'} timeout={500}>
+		<Collapse
+			in={location.pathname !== '/scan' && !redirect_status}
+			timeout={500}
+		>
 			<BottomNavigation
 				value={location.pathname.split('/')[1]}
 				showLabels

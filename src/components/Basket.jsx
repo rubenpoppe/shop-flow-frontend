@@ -35,7 +35,7 @@ export default function Products() {
 			Promise.all(
 				ids.map(async (id) => {
 					const product = await fetch(
-						`${process.env.REACT_APP_API_URL}/products/${id}`
+						`${process.env.REACT_APP_API_URL}/api/products/${id}`
 					).then((res) => res.json());
 					product.count = await db.get('basket', id);
 					return product;

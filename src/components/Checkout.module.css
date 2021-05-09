@@ -1,0 +1,16 @@
+.method {
+	padding: 1rem;
+	margin: 0.5rem 0;
+}
+
+.buttonGroup {
+	position: fixed;
+	bottom: 4.5rem;
+}
+
+.data {
+	margin-top: 1rem;
+	flex-wrap: nowrap;
+	height: 8rem;
+	justify-content: space-between;
+}
