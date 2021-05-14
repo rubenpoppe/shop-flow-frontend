@@ -1,12 +1,10 @@
 import styles from './Basket.module.css';
 import {
-	Avatar,
 	Button,
 	Divider,
 	Fab,
 	List,
 	ListItem,
-	ListItemAvatar,
 	ListItemText,
 	Typography,
 } from '@material-ui/core';
