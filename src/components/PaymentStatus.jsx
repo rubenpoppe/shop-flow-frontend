@@ -53,7 +53,7 @@ export function PaymentFail() {
 
 	useEffect(
 		() =>
-			setTimer(setTimeout(() => window.location.replace('/products'), 5000)),
+			setTimer(setTimeout(() => window.location.replace('/checkout'), 5000)),
 		[]
 	);
 
