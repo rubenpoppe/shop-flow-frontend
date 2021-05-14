@@ -5,15 +5,7 @@ import { Link } from 'react-router-dom';
 import React from 'react';
 import { useState, useEffect } from 'react';
 
-export function PaymentSuccess() {
-	const [timer, setTimer] = useState();
-
-	useEffect(
-		() =>
-			setTimer(setTimeout(() => window.location.replace('/products'), 5000)),
-		[]
-	);
-
+export function PaymentSuccess(props) {
 	return (
 		<>
 			<div className={styles.wrapper}>
@@ -27,12 +19,15 @@ export function PaymentSuccess() {
 						Succes!
 					</Typography>
 					<Typography>
-						De betaling is gelukt! U kan nu verder winkelen.
+						De betaling met id{' '}
+						<Typography className={styles.bold} component="span">
+							{props.paymentIntentId}
+						</Typography>{' '}
+						is gelukt! U kan nu verder winkelen.
 					</Typography>
 				</div>
 
 				<Button
-					onClick={() => clearTimeout(timer)}
 					component={Link}
 					to="/products"
 					variant="contained"

@@ -34,7 +34,7 @@ export default function Checkout() {
 	const stripe = useStripe();
 	const elements = useElements();
 	const history = useHistory();
-	const { redirect_status } = useQuery();
+	const { payment_intent, redirect_status } = useQuery();
 
 	const paymentMethods = [
 		{ value: 'bancontact', label: 'Bancontact' },
@@ -123,7 +123,9 @@ export default function Checkout() {
 			setError('');
 			setProcessing(false);
 			setSucceeded(true);
-			history.push(`/checkout?redirect_status=${payload.paymentIntent.status}`);
+			history.push(
+				`/checkout?payment_intent=${payload.paymentIntent.id}&redirect_status=${payload.paymentIntent.status}`
+			);
 		}
 	};
 
@@ -206,7 +208,7 @@ export default function Checkout() {
 			</div>
 		</form>
 	) : redirect_status === 'succeeded' ? (
-		<PaymentSuccess />
+		<PaymentSuccess paymentIntentId={payment_intent} />
 	) : (
 		<PaymentFail />
 	);
