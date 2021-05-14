@@ -11,6 +11,7 @@ const Product = lazy(() => import('./components/Product'));
 const Scanner = lazy(() => import('./components/Scanner'));
 const Basket = lazy(() => import('./components/Basket'));
 const Checkout = lazy(() => import('./components/Checkout'));
+const Home = lazy(() => import('./components/Home'));
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_KEY);
 
@@ -23,6 +24,9 @@ function App() {
 						<Suspense
 							fallback={<CircularProgress style={{ position: 'fixed' }} />}
 						>
+							<Route path="/" exact>
+								<Home />
+							</Route>
 							<Route path="/products" exact>
 								<Products />
 							</Route>
