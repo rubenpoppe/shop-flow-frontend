@@ -20,10 +20,10 @@ function App() {
 		<Router>
 			<ThemeProvider theme={useMuiTheme()}>
 				<main>
-					<Switch>
 						<Suspense
 							fallback={<CircularProgress style={{ position: 'fixed' }} />}
 						>
+						<Switch>
 							<Route path="/" exact>
 								<Home />
 							</Route>
@@ -44,8 +44,8 @@ function App() {
 									<Checkout />
 								</Elements>
 							</Route>
+						</Switch>
 						</Suspense>
-					</Switch>
 				</main>
 
 				<BottomNav />
