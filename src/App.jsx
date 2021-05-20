@@ -12,6 +12,7 @@ const Scanner = lazy(() => import('./components/Scanner'));
 const Basket = lazy(() => import('./components/Basket'));
 const Checkout = lazy(() => import('./components/Checkout'));
 const Home = lazy(() => import('./components/Home'));
+const NotFound = lazy(() => import('./components/NotFound'));
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_KEY);
 
@@ -20,9 +21,9 @@ function App() {
 		<Router>
 			<ThemeProvider theme={useMuiTheme()}>
 				<main>
-						<Suspense
-							fallback={<CircularProgress style={{ position: 'fixed' }} />}
-						>
+					<Suspense
+						fallback={<CircularProgress style={{ position: 'fixed' }} />}
+					>
 						<Switch>
 							<Route path="/" exact>
 								<Home />
@@ -44,8 +45,11 @@ function App() {
 									<Checkout />
 								</Elements>
 							</Route>
+							<Route>
+								<NotFound />
+							</Route>
 						</Switch>
-						</Suspense>
+					</Suspense>
 				</main>
 
 				<BottomNav />
