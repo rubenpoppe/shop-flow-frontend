@@ -1,13 +1,19 @@
 import './Product.css';
 import { useEffect, useState, lazy } from 'react';
 import { useParams } from 'react-router';
-import { CardMedia, IconButton, Typography } from '@material-ui/core';
+import {
+	CardMedia,
+	CircularProgress,
+	IconButton,
+	Typography,
+} from '@material-ui/core';
 import { ArrowBack } from '@material-ui/icons';
 import { Link, useHistory } from 'react-router-dom';
 const NotFound = lazy(() => import('./NotFound'));
 
 export default function Product() {
 	const [product, setProduct] = useState();
+	const [isLoading, setIsLoading] = useState(true);
 
 	const { id } = useParams();
 	const history = useHistory();
@@ -16,7 +22,10 @@ export default function Product() {
 		() =>
 			fetch(`${process.env.REACT_APP_API_URL}/api/products/${id}`)
 				.then((res) => res.json())
-				.then((json) => setProduct(json)),
+				.then((json) => {
+					setProduct(json);
+					setIsLoading(false);
+				}),
 		[id]
 	);
 
@@ -79,6 +88,8 @@ export default function Product() {
 				<Typography color="textSecondary">{product.description}</Typography>
 			</section>
 		</>
+	) : isLoading ? (
+		<CircularProgress style={{ position: 'fixed' }} />
 	) : (
 		<NotFound />
 	);
