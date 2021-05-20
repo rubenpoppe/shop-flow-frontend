@@ -2,6 +2,7 @@ import styles from './Products.module.css';
 import {
 	AppBar,
 	Avatar,
+	CircularProgress,
 	Divider,
 	Drawer,
 	IconButton,
@@ -31,6 +32,7 @@ export default function Products() {
 	const [category, setCategory] = useState(useQuery().category);
 	const [drawerOpen, setDrawerOpen] = useState(false);
 	const [canSearch, setCanSearch] = useState('');
+	const [isLoading, setIsLoading] = useState(true);
 
 	const history = useHistory();
 	let params = [];
@@ -54,7 +56,10 @@ export default function Products() {
 			`${process.env.REACT_APP_API_URL}/api/products${queryParamJoiner(params)}`
 		)
 			.then((res) => res.json())
-			.then((json) => setProducts(json))
+			.then((json) => {
+				setProducts(json);
+				setIsLoading(false);
+			})
 			.catch((_) => setProducts([]));
 
 		history.replace(`/products${queryParamJoiner(params)}`);
@@ -65,7 +70,9 @@ export default function Products() {
 		setCanSearch(search);
 	};
 
-	return (
+	return isLoading ? (
+		<CircularProgress style={{ position: 'fixed' }} />
+	) : (
 		<>
 			<AppBar style={{ zIndex: 1400 }}>
 				<Toolbar style={{ justifyContent: 'space-between' }}>

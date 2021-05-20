@@ -1,6 +1,7 @@
 import styles from './Basket.module.css';
 import {
 	Button,
+	CircularProgress,
 	Divider,
 	Fab,
 	List,
@@ -16,6 +17,7 @@ import { ShoppingCart } from '@material-ui/icons';
 
 export default function Products() {
 	const [products, setProducts] = useState([]);
+	const [isLoading, setIsLoading] = useState(true);
 
 	const dbRef = useRef(null);
 
@@ -38,7 +40,10 @@ export default function Products() {
 					product.count = await db.get('basket', id);
 					return product;
 				})
-			).then((res) => setProducts(res));
+			).then((res) => {
+				setProducts(res);
+				setIsLoading(false);
+			});
 		}
 		getProducts();
 	}, []);
@@ -57,7 +62,9 @@ export default function Products() {
 		await dbRef.current.put('basket', e, id);
 	};
 
-	return products.length === 0 ? (
+	return isLoading ? (
+		<CircularProgress style={{ position: 'fixed' }} />
+	) : products.length === 0 ? (
 		<Typography color="textSecondary">
 			Nog geen producten in het winkelmandje
 		</Typography>
