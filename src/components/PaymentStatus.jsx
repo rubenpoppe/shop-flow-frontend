@@ -12,7 +12,7 @@ export function PaymentSuccess(props) {
 				<CheckCircleOutline
 					htmlColor="#81c784"
 					fontSize="large"
-					className={styles.icon}
+					style={{ width: '14rem', height: '14rem' }}
 				/>
 				<div className={styles.textWrapper}>
 					<Typography variant="h2" component="h1">
@@ -55,7 +55,11 @@ export function PaymentFail() {
 	return (
 		<>
 			<div className={styles.wrapper}>
-				<HighlightOff color="error" fontSize="large" className={styles.icon} />
+				<HighlightOff
+					color="error"
+					fontSize="large"
+					style={{ width: '14rem', height: '14rem' }}
+				/>
 				<div className={styles.textWrapper}>
 					<Typography variant="h2" component="h1">
 						Mislukt!
