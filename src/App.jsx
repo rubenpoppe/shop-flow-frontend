@@ -25,29 +25,17 @@ function App() {
 						fallback={<CircularProgress style={{ position: 'fixed' }} />}
 					>
 						<Switch>
-							<Route path="/" exact>
-								<Home />
-							</Route>
-							<Route path="/products" exact>
-								<Products />
-							</Route>
-							<Route path="/products/:id">
-								<Product />
-							</Route>
-							<Route path="/scan">
-								<Scanner />
-							</Route>
-							<Route path="/basket">
-								<Basket />
-							</Route>
+							<Route path="/" component={Home} exact />
+							<Route path="/products" component={Products} exact />
+							<Route path="/products/:id" component={Product} />
+							<Route path="/scan" component={Scanner} />
+							<Route path="/basket" component={Basket} />
 							<Route path="/checkout">
 								<Elements stripe={stripePromise}>
 									<Checkout />
 								</Elements>
 							</Route>
-							<Route>
-								<NotFound />
-							</Route>
+							<Route component={NotFound} />
 						</Switch>
 					</Suspense>
 				</main>
