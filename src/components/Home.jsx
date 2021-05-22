@@ -23,16 +23,15 @@ export default function Home() {
 				</Typography>
 				<div className={styles.textWrapper}>
 					<Typography className={styles.text}>
-						Wij hebben een app ontwikkeld dat het vergemakkelijkt om
-						buurtwinkels te beheren.
+						Even de beschikbare producten bekijken? Of snel iets nodig en geen
+						tijd om te wachten aan de kassa?
 					</Typography>
 					<Typography className={styles.text}>
-						De app biedt een overzichtspagina voor al de producten, een detail
-						pagina per product, de mogelijkheid om als klant zelf producten te
-						scannen.
+						Geen nood, deze app zorgt er voor. Met de scan-functie, scan je je
+						producten en betaal je vanop je smartphone.
 					</Typography>
 					<Typography className={styles.text}>
-						Aarzel niet om onze app te instaleren en uit te proberen!
+						Installeer de app zodat je hem altijd snel bij de hand hebt.
 					</Typography>
 				</div>
 				{!window.matchMedia('(display-mode: standalone)').matches && (
@@ -44,7 +43,7 @@ export default function Home() {
 						fullWidth={true}
 						style={{ color: '#fff' }}
 					>
-						Install
+						Installeer
 					</Button>
 				)}
 			</div>

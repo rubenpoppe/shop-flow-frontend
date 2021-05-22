@@ -16,14 +16,14 @@ export function PaymentSuccess(props) {
 				/>
 				<div className={styles.textWrapper}>
 					<Typography variant="h2" component="h1">
-						Succes!
+						Bedankt!
 					</Typography>
 					<Typography>
 						De betaling met id{' '}
 						<Typography className={styles.bold} component="span">
 							{props.paymentIntentId}
 						</Typography>{' '}
-						is gelukt! U kan nu verder winkelen.
+						is geslaagd. We hopen je snel terug te zien.
 					</Typography>
 				</div>
 
@@ -36,7 +36,7 @@ export function PaymentSuccess(props) {
 					fullWidth={true}
 					style={{ color: '#fff' }}
 				>
-					Overzicht
+					Naar producten
 				</Button>
 			</div>
 		</>
@@ -48,7 +48,7 @@ export function PaymentFail() {
 
 	useEffect(
 		() =>
-			setTimer(setTimeout(() => window.location.replace('/checkout'), 5000)),
+			setTimer(setTimeout(() => window.location.replace('/checkout'), 3000)),
 		[]
 	);
 
@@ -65,8 +65,8 @@ export function PaymentFail() {
 						Mislukt!
 					</Typography>
 					<Typography>
-						De betaling is mislukt! U kan terug keren naar de checkout. Als u
-						vragen heeft kan u contact opnemen.
+						Er ging iets bij de betaling. Contacteer een winkelbediende na
+						meerdere mislukte pogingen.
 					</Typography>
 				</div>
 
@@ -80,7 +80,7 @@ export function PaymentFail() {
 					fullWidth={true}
 					style={{ color: '#fff' }}
 				>
-					Opnieuw
+					Opnieuw proberen
 				</Button>
 			</div>
 		</>
