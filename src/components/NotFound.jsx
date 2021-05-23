@@ -1,4 +1,4 @@
-import styles from './PaymentStatus.module.css';
+import styles from './Status.module.css';
 import { Typography } from '@material-ui/core';
 import { Helmet } from 'react-helmet';
 

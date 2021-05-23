@@ -1,4 +1,4 @@
-import styles from './PaymentStatus.module.css';
+import styles from './Status.module.css';
 import { Button, Typography } from '@material-ui/core';
 import { HighlightOff, CheckCircleOutline } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
