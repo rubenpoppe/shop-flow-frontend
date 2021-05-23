@@ -22,7 +22,7 @@ export default function Product() {
 	useEffect(
 		() =>
 			fetch(`${process.env.REACT_APP_API_URL}/api/products/${id}`)
-				.then((res) => res.json())
+				.then((res) => (res.status !== 404 ? res.json() : undefined))
 				.then((json) => {
 					setProduct(json);
 					setIsLoading(false);
