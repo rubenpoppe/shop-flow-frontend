@@ -14,6 +14,7 @@ import { ArrowBack, FlashOff, FlashOn } from '@material-ui/icons';
 import { useHistory } from 'react-router';
 import Incrementer from './Incrementer';
 import { openDB } from 'idb';
+import { Helmet } from 'react-helmet';
 
 function Scanner() {
 	const [capabilities, setCapabilities] = useState({});
@@ -136,6 +137,9 @@ function Scanner() {
 
 	return (
 		<>
+			<Helmet>
+				<title>Scanner | Shop flow</title>
+			</Helmet>
 			<IconButton
 				id="back"
 				aria-label="ga terug"

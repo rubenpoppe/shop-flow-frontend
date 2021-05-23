@@ -14,6 +14,7 @@ import { Fragment, useEffect, useState, useRef } from 'react';
 import { openDB } from 'idb';
 import Incrementer from './Incrementer';
 import { ShoppingCart } from '@material-ui/icons';
+import { Helmet } from 'react-helmet';
 
 export default function Products() {
 	const [products, setProducts] = useState([]);
@@ -62,77 +63,84 @@ export default function Products() {
 		await dbRef.current.put('basket', e, id);
 	};
 
-	return isLoading ? (
-		<CircularProgress style={{ position: 'fixed' }} />
-	) : products.length === 0 ? (
-		<Typography color="textSecondary">
-			Nog geen producten in het winkelmandje
-		</Typography>
-	) : (
+	return (
 		<>
-			<List style={{ paddingBottom: '3.6rem' }}>
-				{products.map((product, i) => (
-					<Fragment key={product.id}>
-						<ListItem>
-							<ListItemText
-								primary={
-									<>
-										<Link
-											to={`/products/${product.id}`}
-											className={styles.productLink}
-										>
-											{product.name}
-										</Link>
-										<Typography variant="overline" color="textSecondary">
-											{`€${product.sellingPrice * product.count}`}
-										</Typography>
-									</>
-								}
-								primaryTypographyProps={{
-									color: 'textPrimary',
-									component: 'div',
-									style: { display: 'flex' },
-									className: styles.productWrapper,
-								}}
-								secondary={
-									<>
-										<Button
-											color="primary"
-											onClick={() => removeProduct(product.id)}
-											style={{ padding: 0 }}
-										>
-											Verwijder
-										</Button>
-										<Incrementer
-											count={product.count}
-											onChange={(e) => updateCount(e, product.id)}
-										/>
-									</>
-								}
-								secondaryTypographyProps={{
-									component: 'div',
-									style: { display: 'flex' },
-									className: styles.productWrapper,
-								}}
-							/>
-						</ListItem>
-						{products.length - 1 > i && <Divider />}
-					</Fragment>
-				))}
-			</List>
-			<Fab
-				variant="extended"
-				color="primary"
-				className={styles.checkout}
-				style={{ position: 'fixed', color: 'rgba(0, 0, 0, 0.54)' }}
-				aria-label="Doorgaan naar afrekenen"
-				component={Link}
-				to="/checkout"
-			>
-				<ShoppingCart />
-				&nbsp;&nbsp;€
-				{products.reduce((sum, p) => sum + p.sellingPrice * p.count, 0)}
-			</Fab>
+			<Helmet>
+				<title>Winkelmandje | Shop flow</title>
+			</Helmet>
+			{isLoading ? (
+				<CircularProgress style={{ position: 'fixed' }} />
+			) : products.length === 0 ? (
+				<Typography color="textSecondary">
+					Nog geen producten in het winkelmandje
+				</Typography>
+			) : (
+				<>
+					<List style={{ paddingBottom: '3.6rem' }}>
+						{products.map((product, i) => (
+							<Fragment key={product.id}>
+								<ListItem>
+									<ListItemText
+										primary={
+											<>
+												<Link
+													to={`/products/${product.id}`}
+													className={styles.productLink}
+												>
+													{product.name}
+												</Link>
+												<Typography variant="overline" color="textSecondary">
+													{`€${product.sellingPrice * product.count}`}
+												</Typography>
+											</>
+										}
+										primaryTypographyProps={{
+											color: 'textPrimary',
+											component: 'div',
+											style: { display: 'flex' },
+											className: styles.productWrapper,
+										}}
+										secondary={
+											<>
+												<Button
+													color="primary"
+													onClick={() => removeProduct(product.id)}
+													style={{ padding: 0 }}
+												>
+													Verwijder
+												</Button>
+												<Incrementer
+													count={product.count}
+													onChange={(e) => updateCount(e, product.id)}
+												/>
+											</>
+										}
+										secondaryTypographyProps={{
+											component: 'div',
+											style: { display: 'flex' },
+											className: styles.productWrapper,
+										}}
+									/>
+								</ListItem>
+								{products.length - 1 > i && <Divider />}
+							</Fragment>
+						))}
+					</List>
+					<Fab
+						variant="extended"
+						color="primary"
+						className={styles.checkout}
+						style={{ position: 'fixed', color: 'rgba(0, 0, 0, 0.54)' }}
+						aria-label="Doorgaan naar afrekenen"
+						component={Link}
+						to="/checkout"
+					>
+						<ShoppingCart />
+						&nbsp;&nbsp;€
+						{products.reduce((sum, p) => sum + p.sellingPrice * p.count, 0)}
+					</Fab>
+				</>
+			)}
 		</>
 	);
 }

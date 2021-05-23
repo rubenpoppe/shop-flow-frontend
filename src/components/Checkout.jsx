@@ -21,6 +21,7 @@ import useQuery from '../hooks/useQuery';
 import { PaymentSuccess, PaymentFail } from './PaymentStatus';
 import stripeErrorCodes from '../assets/stripe-error-codes';
 import { deleteDB, openDB } from 'idb';
+import { Helmet } from 'react-helmet';
 
 export default function Checkout() {
 	const [paymentMethod, setPaymentMethod] = useState('bancontact');
@@ -129,87 +130,94 @@ export default function Checkout() {
 		}
 	};
 
-	return !redirect_status ? (
-		<form onSubmit={handleSubmit}>
-			<Stepper
-				alternativeLabel
-				activeStep={activeStep}
-				style={{ marginBottom: '2rem' }}
-			>
-				{steps.map((step) => (
-					<Step key={step}>
-						<StepLabel>{step}</StepLabel>
-					</Step>
-				))}
-			</Stepper>
-			<div>
-				<FormLabel component="label">{steps[activeStep]}</FormLabel>
-				{activeStep === 0 ? (
-					<RadioGroup
-						aria-label="betaalwijze"
-						value={paymentMethod}
-						onChange={(e) => setPaymentMethod(e.target.value)}
+	return (
+		<>
+			<Helmet>
+				<title>Afrekenen | Shop flow</title>
+			</Helmet>
+			{!redirect_status ? (
+				<form onSubmit={handleSubmit}>
+					<Stepper
+						alternativeLabel
+						activeStep={activeStep}
+						style={{ marginBottom: '2rem' }}
 					>
-						{paymentMethods.map((x) => (
-							<Card className={styles.method} key={x.value}>
-								<FormControlLabel
-									value={x.value}
-									control={<Radio />}
-									label={x.label}
-								/>
-							</Card>
+						{steps.map((step) => (
+							<Step key={step}>
+								<StepLabel>{step}</StepLabel>
+							</Step>
 						))}
-					</RadioGroup>
-				) : (
-					<FormGroup className={styles.data}>
-						<div>
-							<TextField
-								value={accountHolder}
-								variant="outlined"
-								label="Naam"
-								onChange={(e) => setAccountHolder(e.target.value)}
-								style={{ marginBottom: '1rem' }}
-							/>
-							{paymentMethod === 'card' && <CardElement />}
-						</div>
-						{error && (
-							<Typography color="error" role="alert">
-								{error}
-							</Typography>
+					</Stepper>
+					<div>
+						<FormLabel component="label">{steps[activeStep]}</FormLabel>
+						{activeStep === 0 ? (
+							<RadioGroup
+								aria-label="betaalwijze"
+								value={paymentMethod}
+								onChange={(e) => setPaymentMethod(e.target.value)}
+							>
+								{paymentMethods.map((x) => (
+									<Card className={styles.method} key={x.value}>
+										<FormControlLabel
+											value={x.value}
+											control={<Radio />}
+											label={x.label}
+										/>
+									</Card>
+								))}
+							</RadioGroup>
+						) : (
+							<FormGroup className={styles.data}>
+								<div>
+									<TextField
+										value={accountHolder}
+										variant="outlined"
+										label="Naam"
+										onChange={(e) => setAccountHolder(e.target.value)}
+										style={{ marginBottom: '1rem' }}
+									/>
+									{paymentMethod === 'card' && <CardElement />}
+								</div>
+								{error && (
+									<Typography color="error" role="alert">
+										{error}
+									</Typography>
+								)}
+							</FormGroup>
 						)}
-					</FormGroup>
-				)}
-			</div>
-			<div className={styles.buttonGroup}>
-				<Button
-					disabled={activeStep === 0}
-					onClick={() => setActiveStep(activeStep - 1)}
-				>
-					Stap terug
-				</Button>
-				{activeStep !== steps.length - 1 ? (
-					<Button
-						variant="contained"
-						onClick={() => setActiveStep(activeStep + 1)}
-						key="next"
-					>
-						Ga door
-					</Button>
-				) : (
-					<Button
-						variant="contained"
-						type="submit"
-						disabled={processing || succeeded}
-						key="pay"
-					>
-						{processing ? <CircularProgress size="1.75rem" /> : 'Betaal'}
-					</Button>
-				)}
-			</div>
-		</form>
-	) : redirect_status === 'succeeded' ? (
-		<PaymentSuccess paymentIntentId={payment_intent} />
-	) : (
-		<PaymentFail />
+					</div>
+					<div className={styles.buttonGroup}>
+						<Button
+							disabled={activeStep === 0}
+							onClick={() => setActiveStep(activeStep - 1)}
+						>
+							Stap terug
+						</Button>
+						{activeStep !== steps.length - 1 ? (
+							<Button
+								variant="contained"
+								onClick={() => setActiveStep(activeStep + 1)}
+								key="next"
+							>
+								Ga door
+							</Button>
+						) : (
+							<Button
+								variant="contained"
+								type="submit"
+								disabled={processing || succeeded}
+								key="pay"
+							>
+								{processing ? <CircularProgress size="1.75rem" /> : 'Betaal'}
+							</Button>
+						)}
+					</div>
+				</form>
+			) : redirect_status === 'succeeded' ? (
+				<PaymentSuccess paymentIntentId={payment_intent} />
+			) : (
+				<PaymentFail />
+			)}
+		</>
 	);
 }

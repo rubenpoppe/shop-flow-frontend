@@ -4,10 +4,14 @@ import { HighlightOff, CheckCircleOutline } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
 import React from 'react';
 import { useState, useEffect } from 'react';
+import { Helmet } from 'react-helmet';
 
 export function PaymentSuccess(props) {
 	return (
 		<>
+			<Helmet>
+				<title>Betaling geslaagd! | Shop flow</title>
+			</Helmet>
 			<div className={styles.wrapper}>
 				<CheckCircleOutline
 					htmlColor="#81c784"
@@ -54,6 +58,9 @@ export function PaymentFail() {
 
 	return (
 		<>
+			<Helmet>
+				<title>Betaling mislukt | Shop flow</title>
+			</Helmet>
 			<div className={styles.wrapper}>
 				<HighlightOff
 					color="error"

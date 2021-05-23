@@ -9,6 +9,7 @@ import {
 } from '@material-ui/core';
 import { ArrowBack } from '@material-ui/icons';
 import { Link, useHistory } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 const NotFound = lazy(() => import('./NotFound'));
 
 export default function Product() {
@@ -31,6 +32,9 @@ export default function Product() {
 
 	return product ? (
 		<>
+			<Helmet>
+				<title>{`${product.name} | Shop flow`}</title>
+			</Helmet>
 			<IconButton
 				id="back"
 				aria-label="ga terug"
