@@ -19,10 +19,10 @@ export function PaymentSuccess(props) {
 					style={{ width: '14rem', height: '14rem' }}
 				/>
 				<div className={styles.textWrapper}>
-					<Typography variant="h2" component="h1">
+					<Typography variant="h2" component="h1" color="textPrimary">
 						Bedankt!
 					</Typography>
-					<Typography>
+					<Typography color="textPrimary">
 						De betaling met id{' '}
 						<Typography className={styles.bold} component="span">
 							{props.paymentIntentId}
@@ -68,10 +68,10 @@ export function PaymentFail() {
 					style={{ width: '14rem', height: '14rem' }}
 				/>
 				<div className={styles.textWrapper}>
-					<Typography variant="h2" component="h1">
+					<Typography variant="h2" component="h1" color="textPrimary">
 						Mislukt!
 					</Typography>
-					<Typography>
+					<Typography color="textPrimary">
 						Er ging iets bij de betaling. Contacteer een winkelbediende na
 						meerdere mislukte pogingen.
 					</Typography>

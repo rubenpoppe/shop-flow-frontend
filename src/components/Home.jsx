@@ -18,19 +18,19 @@ export default function Home() {
 	return (
 		<>
 			<div className={styles.wrapper}>
-				<Typography variant="h2" component="h1">
+				<Typography variant="h2" component="h1" color="textPrimary">
 					Welkom!
 				</Typography>
 				<div className={styles.textWrapper}>
-					<Typography className={styles.text}>
+					<Typography className={styles.text} color="textPrimary">
 						Even de beschikbare producten bekijken? Of snel iets nodig en geen
 						tijd om te wachten aan de kassa?
 					</Typography>
-					<Typography className={styles.text}>
+					<Typography className={styles.text} color="textPrimary">
 						Geen nood, deze app zorgt er voor. Met de scan-functie, scan je je
 						producten en betaal je vanop je smartphone.
 					</Typography>
-					<Typography className={styles.text}>
+					<Typography className={styles.text} color="textPrimary">
 						Installeer de app zodat je hem altijd snel bij de hand hebt.
 					</Typography>
 				</div>
